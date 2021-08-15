@@ -41,22 +41,29 @@
   </head>
   <body>
     <div class="container">
-      <div class="readme-area">
-        <div>讓15拿著你的照片</div>
-        <div>完成後請自行截圖，目前還沒做圖片下載的功能</div>
-        <div>因為是用 HTML 效果做成的，所以右鍵是沒用的，你只會存到可愛的15</div>
-        <div>另外你的照片會有點變形是正常的，因為我趕著睡覺沒空修</div>
-      </div>
-      <div class="config-area">
-        <div class="d-flex">
-          <input class="flex-fill" id="input-img-src" placeholder="貼上圖片網址" />
+      <dvi class="row">
+        <div class="col-12 col-lg-6">
+          <div class="readme-area">
+            <div>讓15拿著你的照片</div>
+            <div>完成後請自行截圖，目前還沒做圖片下載的功能</div>
+            <div>因為是用 HTML 效果做成的，所以右鍵是沒用的，你只會存到可愛的15</div>
+            <div>另外你的照片會有點變形是正常的，因為我趕著睡覺沒空修</div>
+          </div>
+          <hr />
+          <div class="config-area">
+            <div class="d-flex">
+              <input class="flex-fill" id="input-img-src" placeholder="貼上圖片網址" />
+            </div>
+            <div>圖片建議大小: 550 x 750 <button type="button" class="btn btn-primary" onclick="clickChangeButton()">換照片</button></div>
+          </div>
         </div>
-        <div>圖片建議大小: 550 x 750 <button type="button" class="btn btn-primary" onclick="clickChangeButton()">換照片</button></div>
-      </div>
-      <div class="picture-area">
-        <img class="picture-15" src="./15-2000x2800.png" />
-        <img class="picture-your" id="img-your" src="./received_1507431059620467.jpg" />
-      </div>
+        <div class="col">
+          <div class="picture-area">
+            <img class="picture-15" src="./15-2000x2800.png" />
+            <img class="picture-your" id="img-your" src="./received_1507431059620467.jpg" />
+          </div>
+        </div>
+      </dvi>
     </div>
 
     <script>
