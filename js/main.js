@@ -71,6 +71,11 @@ function getImageFileSrc (file) {
   })
 }
 
+async function getClipboardImageItemSrc (item, type) {
+  const blob = await item.getType(type)
+  return URL.createObjectURL(blob)
+}
+
 async function changePicture (imgSrc) {
   await canvas.init(imgSrc)
 }
@@ -86,6 +91,25 @@ window.changeInputFile = async function (files) {
   if (!file || !(/^image/.test(file.type))) return
   const src = await getImageFileSrc(file)
   await changePicture(src)
+}
+
+document.addEventListener('paste', getFromClipboard)
+
+async function getFromClipboard () {
+  const items = await navigator.clipboard.read()
+  const fileItem = getImageItem(items)
+  if (!fileItem) return
+
+  const src = await getClipboardImageItemSrc(fileItem.item, fileItem.type)
+  await changePicture(src)
+}
+
+function getImageItem (items) {
+  for (const item of items) {
+    for (const type of item.types) {
+      if (/^image/.test(type)) return { item, type }
+    }
+  }
 }
 
 window.clickDownloadButton = function () {

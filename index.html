@@ -57,7 +57,7 @@
           <hr />
           <div class="config-area">
             <div>
-              <div class="mb-1">
+              <div class="mb-3">
                 圖片建議大小: 550 x 750
               </div>
               <div class="input-group mb-3">
@@ -66,6 +66,9 @@
               </div>
               <div class="input-group mb-3">
                 <input type="file" class="form-control" id="input-file" onchange="changeInputFile(this.files)" />
+              </div>
+              <div class="d-flex mb-3">
+                <button class="flex-fill btn btn-secondary" onclick="getFromClipboard()">貼上複製的圖片</button>
               </div>
             </div>
             <hr />
