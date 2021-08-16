@@ -1,5 +1,6 @@
 const IMG_15_SRC = './img/15-2000x2800.png'
 const IMG_15_BACKGROUND_SRC = './img/15-2000x2800-background.png'
+const IMG_DEFAULT_YOUR_SRC = './img/received_1507431059620467.jpg'
 
 class Canvas {
   constructor (id) {
@@ -44,7 +45,7 @@ class Canvas {
 }
 
 async function main () {
-  await canvas.init('./received_1507431059620467.jpg')
+  await canvas.init(IMG_DEFAULT_YOUR_SRC)
 }
 
 function getImage (src) {
