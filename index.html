@@ -4,8 +4,8 @@
     <title>讓15拿著你的照片</title>
     <meta property="og:title" content="讓15拿著你的照片" />
     <meta property="og:description" content="讓15拿著你的照片，假裝自己很受15喜愛" />
-    <meta property="og:image" content="https://softwaresing.github.io/let-15-carry-your-picture/15-400.jpg" />
-    <meta property="og:image:url" content="https://softwaresing.github.io/let-15-carry-your-picture/15-400.jpg" />
+    <meta property="og:image" content="https://softwaresing.github.io/let-15-carry-your-picture/img/15-preview.png" />
+    <meta property="og:image:url" content="https://softwaresing.github.io/let-15-carry-your-picture/img/15-preview.png" />
     <meta name="twitter:card" content="summary" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <style>
@@ -21,22 +21,6 @@
         margin: 10px 0px;
       }
 
-      .picture-area {
-        position: relative;
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .picture-area img {
-        margin: 10px 0px;
-        max-width: 100%;
-      }
-
-      .picture-15 {
-        position: relative;
-        z-index: 10;
-      }
-
       .picture-your {
         z-index: 5;
         position: absolute;
@@ -44,6 +28,10 @@
         height: 26%;
         top: 46%;
         left: 29%;
+      }
+
+      .canvas {
+        max-width: 100%;
       }
     </style>
   </head>
@@ -53,9 +41,6 @@
         <div class="col-12 col-lg-6">
           <div class="readme-area">
             <div>讓15拿著你的照片</div>
-            <div>完成後請自行截圖，目前還沒做圖片下載的功能</div>
-            <div>因為是用 HTML 效果做成的，所以右鍵是沒用的，你只會存到可愛的15</div>
-            <div>另外你的照片會有點變形是正常的，因為我趕著睡覺沒空修</div>
           </div>
           <hr />
           <div class="config-area">
@@ -65,30 +50,12 @@
             <div>圖片建議大小: 550 x 750 <button type="button" class="btn btn-primary" onclick="clickChangeButton()">換照片</button></div>
           </div>
           <hr />
-          <div>
-            <a class="link-primary" href="./how-to.jpg" target="_blank">很簡易的教學</a>
-          </div>
         </div>
         <div class="col">
-          <div class="picture-area">
-            <img class="picture-15" src="./15-2000x2800.png" />
-            <img class="picture-your" id="img-your" src="./received_1507431059620467.jpg" />
-          </div>
+          <canvas class="canvas" id="canvas"></canvas>
         </div>
       </dvi>
     </div>
-
-    <script>
-      function clickChangeButton () {
-        const input = document.getElementById('input-img-src')
-        const imgSrc = input.value
-        changePicture(imgSrc)
-      }
-
-      function changePicture (imgSrc) {
-        const img = document.getElementById('img-your')
-        img.src = imgSrc
-      }
-    </script>
+    <script src="./js/main.js"></script>
   </body>
 </html>
