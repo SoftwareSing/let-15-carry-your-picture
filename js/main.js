@@ -26,7 +26,7 @@ class Canvas {
 
   async init (yourImageSrc) {
     const [imgYour, img15, imgBackground] = await Promise.all([
-      getImage(yourImageSrc),
+      getImage(yourImageSrc, { crossOrigin: 'Anonymous' }),
       this.getImg15(),
       this.getImgBackground()
     ])
@@ -42,14 +42,19 @@ class Canvas {
 
     this.ctx.globalCompositeOperation = 'source-over'
   }
+
+  toDataURL () {
+    return this.canvas.toDataURL()
+  }
 }
 
 async function main () {
-  await canvas.init(IMG_DEFAULT_YOUR_SRC)
+  await changePicture(IMG_DEFAULT_YOUR_SRC)
 }
 
-function getImage (src) {
+function getImage (src, { crossOrigin } = {}) {
   const img = new Image()
+  if (crossOrigin) img.setAttribute('crossOrigin', crossOrigin)
   img.src = src
   return new Promise((resolve, reject) => {
     img.onload = resolve.bind(this, img)
@@ -65,6 +70,13 @@ window.clickChangeButton = function () {
   const input = document.getElementById('input-img-src')
   const imgSrc = input.value
   changePicture(imgSrc)
+}
+
+window.clickDownloadButton = function () {
+  const downloadElementA = document.createElement('a')
+  downloadElementA.download = `15-with-you-${Date.now()}.png`
+  downloadElementA.href = canvas.toDataURL()
+  downloadElementA.click()
 }
 
 const canvas = new Canvas('canvas')

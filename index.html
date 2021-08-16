@@ -40,21 +40,32 @@
       <dvi class="row">
         <div class="col-12 col-lg-6">
           <div class="readme-area">
-            <div>讓15拿著你的照片</div>
+            <h1>讓15拿著你的照片</h1>
           </div>
           <hr />
           <div class="config-area">
-            <div class="d-flex">
-              <input class="flex-fill" id="input-img-src" placeholder="貼上圖片網址" />
+            <div>
+              <div class="mb-1">
+                圖片建議大小: 550 x 750
+              </div>
+              <div class="input-group mb-3">
+                <input class="form-control" id="input-img-src" type="text" placeholder="貼上圖片網址" />
+                <button type="button" class="btn btn-primary" onclick="clickChangeButton()">換照片</button>
+              </div>
             </div>
-            <div>圖片建議大小: 550 x 750 <button type="button" class="btn btn-primary" onclick="clickChangeButton()">換照片</button></div>
           </div>
           <hr />
+          <div>
+            <button type="button" class="btn btn-warning" onclick="clickDownloadButton()">下載</button>
+          </div>
         </div>
         <div class="col">
-          <canvas class="canvas" id="canvas"></canvas>
+          <button class="btn btn-link" onclick="clickDownloadButton()">
+            <canvas class="canvas" id="canvas"></canvas>
+          </button>
         </div>
       </dvi>
+      <hr />
     </div>
     <script src="./js/main.js"></script>
   </body>
