@@ -62,14 +62,30 @@ function getImage (src, { crossOrigin } = {}) {
   })
 }
 
+function getImageFileSrc (file) {
+  const reader = new FileReader()
+  reader.readAsDataURL(file)
+  return new Promise((resolve, reject) => {
+    reader.onload = (e) => resolve(e.target.result)
+    reader.onerror = reject.bind(this)
+  })
+}
+
 async function changePicture (imgSrc) {
   await canvas.init(imgSrc)
 }
 
-window.clickChangeButton = function () {
+window.clickChangeButton = async function () {
   const input = document.getElementById('input-img-src')
   const imgSrc = input.value
-  changePicture(imgSrc)
+  await changePicture(imgSrc)
+}
+
+window.changeInputFile = async function (files) {
+  const file = files[0]
+  if (!file || !(/^image/.test(file.type))) return
+  const src = await getImageFileSrc(file)
+  await changePicture(src)
 }
 
 window.clickDownloadButton = function () {
