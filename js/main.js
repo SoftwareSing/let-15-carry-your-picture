@@ -1,5 +1,7 @@
-const IMG_15_SRC = './img/15-2000x2800.png'
-const IMG_15_BACKGROUND_SRC = './img/15-2000x2800-background.png'
+const IMG_PHOTO_FRAME_BG_SRC = './img/photo-frame-bg-green.png'
+const IMG_15_OUT_PHOTO_FRAME_SRC = './img/15-out-photo-frame.png'
+const IMG_15_IN_PHOTO_FRAME_SRC = './img/15-in-photo-frame.png'
+
 const IMG_DEFAULT_YOUR_SRC = './img/received_1507431059620467.jpg'
 
 class Canvas {
@@ -10,35 +12,26 @@ class Canvas {
     this.ctx = this.canvas.getContext('2d')
   }
 
-  async getImg15 () {
-    if (!this._img15) {
-      this._img15 = await getImage(IMG_15_SRC)
-    }
-    return this._img15
-  }
-
-  async getImgBackground () {
-    if (!this._imgBackground) {
-      this._imgBackground = await getImage(IMG_15_BACKGROUND_SRC)
-    }
-    return this._imgBackground
-  }
-
   async init (yourImageSrc) {
-    const [imgYour, img15, imgBackground] = await Promise.all([
-      getImage(yourImageSrc, { crossOrigin: 'Anonymous' }),
-      this.getImg15(),
-      this.getImgBackground()
+    const [imgYour, imgPhotoFrame, img15InFrame, img15OutFrame] = await Promise.all([
+      ImageLoader.getImage(yourImageSrc, { crossOrigin: 'Anonymous' }),
+      ImageLoader.getKeepImage(IMG_PHOTO_FRAME_BG_SRC),
+      ImageLoader.getKeepImage(IMG_15_IN_PHOTO_FRAME_SRC),
+      ImageLoader.getKeepImage(IMG_15_OUT_PHOTO_FRAME_SRC)
     ])
 
     this.ctx.clearRect(0, 0, 2000, 2800)
-    this.ctx.drawImage(img15, 0, 0, 2000, 2800)
+    this.ctx.globalCompositeOperation = 'source-over'
+    this.ctx.drawImage(imgPhotoFrame, 0, 0, 2000, 2800)
+
+    this.ctx.globalCompositeOperation = 'source-out'
+    this.ctx.drawImage(imgYour, 600, 1200, 550, 750)
 
     this.ctx.globalCompositeOperation = 'destination-over'
-    this.ctx.drawImage(imgYour, 560, 1280, 550, 750)
+    this.ctx.drawImage(img15InFrame, 0, 0, 2000, 2800)
 
-    this.ctx.globalCompositeOperation = 'xor'
-    this.ctx.drawImage(imgBackground, 0, 0, 2000, 2800)
+    this.ctx.globalCompositeOperation = 'source-over'
+    this.ctx.drawImage(img15OutFrame, 0, 0, 2000, 2800)
 
     this.ctx.globalCompositeOperation = 'source-over'
   }
@@ -48,18 +41,34 @@ class Canvas {
   }
 }
 
-async function main () {
-  await changePicture(IMG_DEFAULT_YOUR_SRC)
+class ImageLoader {
+  static getImage (src, { crossOrigin = '' } = {}) {
+    const img = new Image()
+    if (crossOrigin) img.setAttribute('crossOrigin', crossOrigin)
+    img.src = src
+
+    return new Promise((resolve, reject) => {
+      img.onload = resolve.bind(this, img)
+      img.onerror = reject.bind(this)
+    })
+  }
+
+  static getKeepImage (src, { crossOrigin = '' } = {}) {
+    const keepKey = `keep:${src}:${crossOrigin}`
+    const keepImage = this[keepKey]
+    if (keepImage) return keepImage
+
+    const image = this.getImage(src, { crossOrigin })
+    this[keepKey] = image
+    image.catch(() => {
+      delete this[keepKey]
+    })
+    return image
+  }
 }
 
-function getImage (src, { crossOrigin } = {}) {
-  const img = new Image()
-  if (crossOrigin) img.setAttribute('crossOrigin', crossOrigin)
-  img.src = src
-  return new Promise((resolve, reject) => {
-    img.onload = resolve.bind(this, img)
-    img.onerror = reject.bind(this)
-  })
+async function main () {
+  await changePicture(IMG_DEFAULT_YOUR_SRC)
 }
 
 function getImageFileSrc (file) {
