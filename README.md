@@ -12,3 +12,5 @@
 - [YouTube](https://www.youtube.com/channel/UC_UqaRNrLcaL4fp2IAPV0OQ)
 - [Twitter](https://twitter.com/no15_rescute/)
 - [Facebook](https://www.facebook.com/RESCUTE119/)
+- [台灣石虎保育協會 - 捐款](https://leopardcat.neticrm.tw/civicrm/contribute/transact?reset=1&id=3)
+- [台灣石虎保育協會 - Facebook](https://www.facebook.com/LCAT2017/)
