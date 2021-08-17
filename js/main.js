@@ -19,7 +19,7 @@ class Canvas {
     this.ctx = this.canvas.getContext('2d')
     this.yourImageSrc = IMG_DEFAULT_YOUR_SRC
     this.config = {
-      inPhotoFrameBackground: '15', // '15', 'transparent', 'color'
+      inPhotoFrameBackground: 'color', // '15', 'transparent', 'color'
       inPhotoFrameBackgroundColor: '#FFFFFF'
     }
   }
