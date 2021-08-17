@@ -2,7 +2,7 @@ const IMG_PHOTO_FRAME_BG_SRC = './img/photo-frame-bg-green.png'
 const IMG_15_OUT_PHOTO_FRAME_SRC = './img/15-out-photo-frame.png'
 const IMG_15_IN_PHOTO_FRAME_SRC = './img/15-in-photo-frame.png'
 
-const IMG_DEFAULT_YOUR_SRC = './img/received_1507431059620467.jpg'
+const IMG_DEFAULT_YOUR_SRC = './img/transparent-550x750.png'
 
 class Canvas {
   constructor (id) {
