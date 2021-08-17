@@ -180,6 +180,11 @@ window.changeInPhotoFrameBackground = async function (value) {
   await canvas.init()
 }
 
+window.changeInPhotoFrameBackgroundColor = async function (value) {
+  canvas.config.inPhotoFrameBackgroundColor = value
+  await canvas.init()
+}
+
 window.clickDownloadButton = function () {
   const downloadElementA = document.createElement('a')
   downloadElementA.download = `15-with-you-${Date.now()}.png`

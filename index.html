@@ -73,11 +73,18 @@
             <div>
               <div>
                 <label for="in-photo-frame-background" class="form-label">相框內背景</label>
-                <select id="in-photo-frame-background" class="form-select" aria-label="Default select example" onchange="changeInPhotoFrameBackground(this.value)">
-                  <option value="15">維持透視 (顯示相框後身體)</option>
-                  <option value="transparent">以透明填滿 (不顯示相框後身體)</option>
-                  <option value="color" selected>以白色填滿</option>
-                </select>
+                <div class="row">
+                  <div class="col-8">
+                    <select id="in-photo-frame-background" class="form-select" aria-label="Default select example" onchange="changeInPhotoFrameBackground(this.value)">
+                      <option value="15">維持透視 (顯示相框後身體)</option>
+                      <option value="transparent">以透明填滿 (不顯示相框後身體)</option>
+                      <option value="color" selected>以顏色填滿</option>
+                    </select>
+                  </div>
+                  <div class="col input-group">
+                    <input id="in-photo-frame-background-color" class="form-control form-control-color" type="color" value="#FFFFFF" onchange="changeInPhotoFrameBackgroundColor(this.value)" />
+                  </div>
+                </div>
               </div>
             </div>
 
