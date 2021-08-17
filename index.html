@@ -68,6 +68,19 @@
                 <button class="flex-fill btn btn-secondary" onclick="getFromClipboard()">貼上複製的圖片</button>
               </div>
             </div>
+
+            <hr />
+            <div>
+              <div>
+                <label for="in-photo-frame-background" class="form-label">相框內背景</label>
+                <select id="in-photo-frame-background" class="form-select" aria-label="Default select example" onchange="changeInPhotoFrameBackground(this.value)">
+                  <option value="15" selected>維持透視 (顯示相框後身體)</option>
+                  <option value="transparent">以透明填滿 (不顯示相框後身體)</option>
+                  <option value="color">以白色填滿</option>
+                </select>
+              </div>
+            </div>
+
             <hr />
             <div>
               <button type="button" class="btn btn-warning" onclick="clickDownloadButton()">下載</button>

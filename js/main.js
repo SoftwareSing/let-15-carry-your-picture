@@ -4,41 +4,90 @@ const IMG_15_IN_PHOTO_FRAME_SRC = './img/15-in-photo-frame.png'
 
 const IMG_DEFAULT_YOUR_SRC = './img/transparent-550x750.png'
 
+const CANVAS_WIDTH = 2000
+const CANVAS_HEIGHT = 2800
+const PHOTO_WIDTH = 550
+const PHOTO_HEIGHT = 750
+const PHOTO_X = 600
+const PHOTO_Y = 1200
+
 class Canvas {
   constructor (id) {
     this.canvas = document.getElementById(id)
-    this.canvas.width = 2000
-    this.canvas.height = 2800
+    this.canvas.width = CANVAS_WIDTH
+    this.canvas.height = CANVAS_HEIGHT
     this.ctx = this.canvas.getContext('2d')
+    this.yourImageSrc = IMG_DEFAULT_YOUR_SRC
+    this.config = {
+      inPhotoFrameBackground: '15', // '15', 'transparent', 'color'
+      inPhotoFrameBackgroundColor: '#FFFFFF'
+    }
   }
 
-  async init (yourImageSrc) {
-    const [imgYour, imgPhotoFrame, img15InFrame, img15OutFrame] = await Promise.all([
+  async init (yourImageSrc = this.yourImageSrc) {
+    this.yourImageSrc = yourImageSrc
+    const [imgYour, imgInFrameBackground, img15OutFrame] = await Promise.all([
       ImageLoader.getImage(yourImageSrc, { crossOrigin: 'Anonymous' }),
-      ImageLoader.getKeepImage(IMG_PHOTO_FRAME_BG_SRC),
-      ImageLoader.getKeepImage(IMG_15_IN_PHOTO_FRAME_SRC),
+      this.getImgInPhotoFrameBackground(),
       ImageLoader.getKeepImage(IMG_15_OUT_PHOTO_FRAME_SRC)
     ])
+    const imgYourCut = await this.cutOutImageInPhotoFrame(imgYour)
 
-    this.ctx.clearRect(0, 0, 2000, 2800)
+    this.ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-    // 將 imgYour 不應顯示的空間填滿 (僅相框內保留透明)
-    this.ctx.globalCompositeOperation = 'source-over'
-    this.ctx.drawImage(imgPhotoFrame, 0, 0, 2000, 2800)
-
-    // 貼上 imgYour , 並把前一張圖清空
     this.ctx.globalCompositeOperation = 'source-out'
-    this.ctx.drawImage(imgYour, 600, 1200, 550, 750)
+    this.ctx.drawImage(imgYourCut, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
     // 在 imgYour 的後方貼上相框後的圖片
-    this.ctx.globalCompositeOperation = 'destination-over'
-    this.ctx.drawImage(img15InFrame, 0, 0, 2000, 2800)
+    if (imgInFrameBackground) {
+      this.ctx.globalCompositeOperation = 'destination-over'
+      this.ctx.drawImage(imgInFrameBackground, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+    }
 
     // 在最前方貼上剩餘部分
     this.ctx.globalCompositeOperation = 'source-over'
-    this.ctx.drawImage(img15OutFrame, 0, 0, 2000, 2800)
+    this.ctx.drawImage(img15OutFrame, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
     this.ctx.globalCompositeOperation = 'source-over'
+  }
+
+  async getImgInPhotoFrameBackground () {
+    const { inPhotoFrameBackground, inPhotoFrameBackgroundColor } = this.config
+    switch (inPhotoFrameBackground) {
+      case '15': {
+        return await ImageLoader.getKeepImage(IMG_15_IN_PHOTO_FRAME_SRC)
+      }
+      case 'transparent': {
+        return undefined
+      }
+      case 'color': {
+        const canvas = document.createElement('canvas')
+        canvas.width = PHOTO_WIDTH
+        canvas.height = PHOTO_HEIGHT
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = inPhotoFrameBackgroundColor
+        ctx.fillRect(0, 0, PHOTO_WIDTH, PHOTO_HEIGHT)
+        return await this.cutOutImageInPhotoFrame(canvas)
+      }
+    }
+  }
+
+  async cutOutImageInPhotoFrame (img) {
+    const imgPhotoFrame = await ImageLoader.getKeepImage(IMG_PHOTO_FRAME_BG_SRC)
+    const canvas = document.createElement('canvas')
+    canvas.width = CANVAS_WIDTH
+    canvas.height = CANVAS_HEIGHT
+    const ctx = canvas.getContext('2d')
+
+    // 將不應顯示的空間填滿 (僅相框內保留透明)
+    ctx.globalCompositeOperation = 'source-over'
+    ctx.drawImage(imgPhotoFrame, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+
+    // 在透明區域貼上 img , 並把前一張圖清空
+    ctx.globalCompositeOperation = 'source-out'
+    ctx.drawImage(img, PHOTO_X, PHOTO_Y, PHOTO_WIDTH, PHOTO_HEIGHT)
+
+    return canvas
   }
 
   toDataURL () {
@@ -124,6 +173,11 @@ function getImageItem (items) {
       if (/^image/.test(type)) return { item, type }
     }
   }
+}
+
+window.changeInPhotoFrameBackground = async function (value) {
+  canvas.config.inPhotoFrameBackground = value
+  await canvas.init()
 }
 
 window.clickDownloadButton = function () {
