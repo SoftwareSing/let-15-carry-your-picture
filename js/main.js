@@ -3,6 +3,7 @@ const IMG_15_OUT_PHOTO_FRAME_SRC = './img/15-out-photo-frame.png'
 const IMG_15_IN_PHOTO_FRAME_SRC = './img/15-in-photo-frame.png'
 
 const IMG_DEFAULT_YOUR_SRC = './img/transparent-550x750.png'
+const IMG_FISH_SRC = './img/fish-1100x1500.png'
 
 const CANVAS_WIDTH = 2000
 const CANVAS_HEIGHT = 2800
@@ -141,6 +142,10 @@ async function getClipboardImageItemSrc (item, type) {
 
 async function changePicture (imgSrc) {
   await canvas.init(imgSrc)
+}
+
+window.useFishPicture = async function () {
+  await changePicture(IMG_FISH_SRC)
 }
 
 window.clickChangeButton = async function () {

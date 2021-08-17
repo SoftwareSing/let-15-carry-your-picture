@@ -54,12 +54,17 @@
           <hr />
           <div class="config-area">
             <div>
-              <div class="mb-3">
-                圖片建議大小: 550 x 750
+              <div class="d-flex mb-2">
+                <div class="flex-fill">
+                  圖片建議大小: 550 x 750
+                </div>
+                <div>
+                  <button type="button" class="btn btn-info" onclick="useFishPicture()">放上春魚</button>
+                </div>
               </div>
               <div class="input-group mb-3">
                 <input class="form-control" id="input-img-src" type="text" placeholder="貼上圖片網址" />
-                <button type="button" class="btn btn-primary" onclick="clickChangeButton()">換照片</button>
+                <button type="button" class="btn btn-primary" onclick="clickChangeButton()">更換照片</button>
               </div>
               <div class="input-group mb-3">
                 <input type="file" class="form-control" id="input-file" onchange="changeInputFile(this.files)" />
