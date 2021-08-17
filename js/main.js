@@ -21,15 +21,20 @@ class Canvas {
     ])
 
     this.ctx.clearRect(0, 0, 2000, 2800)
+
+    // 將 imgYour 不應顯示的空間填滿 (僅相框內保留透明)
     this.ctx.globalCompositeOperation = 'source-over'
     this.ctx.drawImage(imgPhotoFrame, 0, 0, 2000, 2800)
 
+    // 貼上 imgYour , 並把前一張圖清空
     this.ctx.globalCompositeOperation = 'source-out'
     this.ctx.drawImage(imgYour, 600, 1200, 550, 750)
 
+    // 在 imgYour 的後方貼上相框後的圖片
     this.ctx.globalCompositeOperation = 'destination-over'
     this.ctx.drawImage(img15InFrame, 0, 0, 2000, 2800)
 
+    // 在最前方貼上剩餘部分
     this.ctx.globalCompositeOperation = 'source-over'
     this.ctx.drawImage(img15OutFrame, 0, 0, 2000, 2800)
 
