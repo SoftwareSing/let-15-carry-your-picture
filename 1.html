@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>讓15拿著你的照片</title>
+    <link rel="icon" href="./favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta property="og:title" content="讓15拿著你的照片" />
+    <meta property="og:description" content="讓15拿著你的照片，假裝自己很受15喜愛" />
+    <meta property="og:image" content="https://softwaresing.github.io/let-15-carry-your-picture/img/1/15-preview.png" />
+    <meta property="og:image:url" content="https://softwaresing.github.io/let-15-carry-your-picture/img/1/15-preview.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <style>
+      body {
+        background-color: #dbd8d5;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      .readme-area {
+        margin: 10px 0px;
+      }
+
+      .config-area {
+        margin: 10px 0px;
+      }
+
+      .canvas {
+        width: 100%;
+      }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BL4ZW47QQ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BL4ZW47QQ2');
+    </script>
+  </head>
+  <body>
+    <div class="container-lg mt-4">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="readme-area d-flex">
+            <h1 class="flex-fill">讓15拿著你的照片</h1>
+            <div class="d-flex flex-column">
+              <div class="flex-fill"></div>
+              <a class="github-button" href="https://github.com/SoftwareSing/let-15-carry-your-picture" data-show-count="true" aria-label="Star SoftwareSing/let-15-carry-your-picture on GitHub">Star</a>
+            </div>
+          </div>
+          <hr />
+          <div class="config-area">
+            <div>
+              <div class="d-flex mb-2">
+                <div class="flex-fill">
+                  圖片建議大小: 225 x 103
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input class="form-control" id="input-img-src" type="text" placeholder="貼上圖片網址" />
+                <button type="button" class="btn btn-primary" onclick="clickChangeButton()">更換照片</button>
+              </div>
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="input-file" onchange="changeInputFile(this.files)" />
+              </div>
+              <div class="d-flex mb-3">
+                <button class="flex-fill btn btn-secondary" onclick="getFromClipboard()">貼上複製的圖片</button>
+              </div>
+            </div>
+
+            <hr />
+            <div>
+              <button type="button" class="btn btn-warning" onclick="clickDownloadButton()">下載</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <button class="btn btn-link" onclick="clickDownloadButton()">
+            <canvas class="canvas" id="canvas"></canvas>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="./js/main-1.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      console.log('我愛15號 ❤')
+    </script>
+  </body>
+</html>
