@@ -5,7 +5,7 @@
 
 讓15拿著你的照片，[TRY IT](https://softwaresing.github.io/let-15-carry-your-picture/)
 
-![preview](/readme-img/15-preview.png)
+![preview](/readme-img/15-example.gif)
 
 ## 立刻加入好野人，愛護石虎
 
